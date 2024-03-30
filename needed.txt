@@ -1,0 +1,6 @@
+login:admin
+pass:admin
+
+#run in other terminal with runserver  command for tailwind css
+
+npx tailwindcss -i ./static/src/input.css -o ./static/src/output.css --watch
