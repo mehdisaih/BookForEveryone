@@ -12,6 +12,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.shortcuts import render, redirect
+from .models import Cart, CartItem 
 
 from book.models import Final_Rating
 
@@ -32,9 +34,6 @@ def index(request):
 
     return render(request, 'books.html', {'page_obj': page_obj})
 
-def book_details(request, book_id):
-    book = get_object_or_404(Final_Rating, pk=book_id)
-    return render(request, 'book_details.html', {'book': book})
 
 def signin(request):
     if request.user.is_authenticated:
@@ -53,3 +52,8 @@ def signin(request):
     else:
         form = AuthenticationForm()
         return render(request, 'login.html', {'form': form})
+ 
+def book_details(request, book_id):
+    book = get_object_or_404(Final_Rating, pk=book_id)
+    return render(request, 'book_details.html', {'book': book})
+

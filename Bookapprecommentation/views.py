@@ -3,7 +3,13 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignInForm , SignUpForm
-
+from .forms import AddToCartForm
+from book.models import Final_Rating
+from book.models import Cart, CartItem,Item
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 
 
 
@@ -49,7 +55,44 @@ def signin(request):
     else:
         form = SignInForm()
         return render(request, 'signin.html', {'form': form})
+    
+def book_details(request, book_id):
+    book = get_object_or_404(Final_Rating, pk=book_id)
+    return render(request, 'book_details.html', {'book': book})
 
-    
-    
+@login_required
+def view_cart(request):
+    # Récupérer le panier de l'utilisateur actuellement connecté
+    cart, created = Cart.objects.get_or_create(user=request.user)
+
+    # Récupérer le contenu du panier et le total
+    cart_items = cart.cartitem_set.all()
+    total_price = ...  # Calculez le total du panier
+
+    # Passer les données au template cart.html
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price
+    }
+    return render(request, 'cart.html', context)
+
+def add_to_cart(request, book_id):
+    if request.method == 'POST':
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            quantity = form.cleaned_data['quantity']
+
+            # Print the retrieved book_id for debugging
+            print(f"Retrieved book_id from form: {book_id}")
+
+            # Retrieve the article to add to the cart
+            book = get_object_or_404(Final_Rating, ISBN=book_id)
+
+            # ... rest of your code for adding the book to the cart ...
+
+    else:
+        form = AddToCartForm()
+
+    return render(request, 'book_details.html', {'form': form})
+
  
