@@ -76,9 +76,15 @@
                               <li ><a href="/">Home</a></li>
                                 <li> <a href="/about">About us</a> </li>
                                 <li><a href="/book/">Our Books</a></li>
-                                <li><a href="/signin/">Sign In</a></li>
-                                <li class="active"><a href="/signup/">Sign Up</a></li>
-                                 <li class="mean-last"> <a href="#"><img src=" {% static 'images/top-icon.png'%}" alt="#" /></a> </li>
+                                {% if user.is_authenticated %}
+                                 <li><a class="" href="/logout/">𝙡𝙤𝙜𝙤𝙪𝙩  </a></li>
+                                 <li> <a class="" href="/book/cart/">𝙘𝙖𝙧𝙩    </a></li>
+                                 <li>{{user.username}}</li>                                 
+                                 
+                               {% else %}
+                               <li><a class="active" href="/signup">𝙨𝙞𝙜𝙣𝙪𝙥  </a></li>
+                                 <li><a class="" href="/signin">𝙇𝙤𝙜𝙞𝙣   </a></li>
+                             {% endif %}
                              </ul>
                           </nav>
                        </div>

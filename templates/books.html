@@ -46,6 +46,7 @@
          width: 100%;
       }
 
+<<<<<<< Updated upstream
       .card {
          transition: transform 0.3s ease;
       }
@@ -67,6 +68,43 @@
                   <div class="full">
                      <div class="center-desk">
                         <div class="logo"> <a href="/"><img src=" {% static 'images/logo.png'%}" alt="#"></a> </div>
+=======
+      </style>
+   </head>
+   <!-- body -->
+   <body class="main-layout Books-bg">
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo"> <a href="/"><img src=" {% static 'images/logo.png'%}" alt="#"></a> </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <div class="menu-area">
+                        <div class="limit-box">
+                           <nav class="main-menu">
+                              <ul class="menu-area-main">
+                                 <li ><a href="/">Home</a></li>
+                                 <li> <a href="/about">About us</a> </li>
+                                 <li class="active"><a href="/book/">Our Books</a></li>
+                                 {% if user.is_authenticated %}
+                                 <li><a class="" href="/logout/">Logout</a></li>
+                                 <li> <a class="" href="/book/cart/">Cart    </a></li>
+                                 <li>{{user.username}}</li>                                 
+                               {% else %}
+                               <li><a class="" href="/signup">Signup  </a></li>
+                                 <li><a class="" href="/signin">Login   </a></li>
+                             {% endif %}
+                              </ul>
+                           </nav>
+                        </div>
+>>>>>>> Stashed changes
                      </div>
                   </div>
                </div>
@@ -127,6 +165,7 @@
       <div class="row equal-height-row">
          {% for book in page_obj %}
          <div class="col-md-3 col-sm-2 col-4 mb-4 equal-height-col">
+<<<<<<< Updated upstream
             <a href="{% url 'book_details' book_id=book.pk %}"> <!-- Link to book detail page -->
                <div class="card h-100">
                   <img src="{{ book.Image_URL_L }}" class="card-img-top" alt="{{ book.Title }} Cover">
@@ -137,6 +176,18 @@
                   </div>
                </div>
             </a>
+=======
+             <a href="{% url 'book_details' book_id=book.pk %}"> <!-- Link to book detail page -->
+                 <div class="card h-100">
+                     <img src="{{ book.Image_URL_L }}" class="card-img-top" alt="{{ book.Title }} Cover">
+                     <div class="card-body text-center">
+                         <h5 class="card-title">{{ book.Title }}</h5>
+                         <p class="card-text"><strong>Author:</strong> {{ book.Author }}</p>
+                         <p class="card-text mt-4"><strong>Rating:</strong> {{ book.Rating }} / 10</p>
+                     </div>
+                 </div>
+             </a> 
+>>>>>>> Stashed changes
          </div>
          {% endfor %}
       </div>

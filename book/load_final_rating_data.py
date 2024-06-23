@@ -28,7 +28,7 @@ def load_final_rating_data():
         # Now you can access Django models safely
         from Bookapprecommentation.settings import BASE_DIR
 
-        with open(os.path.join(BASE_DIR, 'C:\\Users\\dell\\Desktop\\BookForEveryone\\Model\\artifacts\\final_rating.pkl'), 'rb') as file:
+        with open(os.path.join(BASE_DIR, 'C:\\Users\\dell\\Desktop\\BookForEveryone\\Model\\artifacts\\average_ratings.pkl'), 'rb') as file:
             final_rating_data = pickle.load(file)
             print("Final rating data:", final_rating_data)  # Print final_rating_data for debugging
 

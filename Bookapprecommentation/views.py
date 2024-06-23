@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignInForm , SignUpForm
+<<<<<<< Updated upstream
 from .forms import AddToCartForm
 from book.models import Final_Rating
 from book.models import Cart, CartItem,Item
@@ -10,6 +11,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+=======
+from book.models import Cart
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import logout as django_logout
+>>>>>>> Stashed changes
 
 
 
@@ -27,7 +34,8 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            Cart.objects.create(user=user)
             return redirect('/')  
     else:
         form = SignUpForm()
@@ -95,4 +103,17 @@ def add_to_cart(request, book_id):
 
     return render(request, 'book_details.html', {'form': form})
 
+<<<<<<< Updated upstream
  
+=======
+    
+    
+@login_required
+def default(request):
+    profile = User.objects.get(user=request.user)    
+    return render(request, 'profile.html', {'profile': profile})
+
+def logout(request):
+    django_logout(request)
+    return redirect('signin')
+>>>>>>> Stashed changes
