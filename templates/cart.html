@@ -1,0 +1,276 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas --><link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+    <!-- XDSoft DateTimePicker -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" integrity="sha256-DOS9W6NR+NFe1fUhEE0PGKY/fubbUCnOfTje2JMDw3Y=" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js" integrity="sha256-FEqEelWI3WouFOo2VWP/uJfs1y8KJ++FLh2Lbqc8SJk=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://kit.fontawesome.com/2c95e9d3d4.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" integrity="sha512-fD9DI5bZwQxOi7MhYWnnNPlvXdp/2Pj3XSTRrFs5FQa4mizyGLnJcN6tuvUS6LbmgN1ut+XGSABKvjN0H6Aoow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>memorial books</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <!-- style css -->
+      <link rel="stylesheet" href="{% static 'css/style.css'%}">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="{% static 'css/responsive.css'%}">
+      <!-- fevicon -->
+      <link rel="icon" href="{% static 'images/fevicon.png'%}" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href=" {% static 'css/jquery.mCustomScrollbar.min.css'%}">
+      <!-- Tweaks for older IEs-->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- loader  -->
+
+      <!-- end loader -->
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col logo_section">
+                     <div class="full">
+                        <div class="center-desk">
+                           <div class="logo"> <a href="/"><img src=" {% static 'images/logo.png'%}" alt="#"></a> </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                     <div class="menu-area">
+                        <div class="limit-box">
+                           <nav class="main-menu">
+                              <ul class="menu-area-main">
+                                 <li ><a href="/">Home</a></li>
+                                 <li class="" > <a href="about">About us</a> </li>
+                                 <li><a href="/book/">Our Books</a></li>
+                                 {% if user.is_authenticated %}
+                                 <li><a class="" href="/logout/">logout  </a></li>
+                                 <li> <a class="active" href="/book/cart/">Cart</a></li>
+<li>{{user.username}}</li>                                 
+                               {% else %}
+                               <li><a class="" href="/signup">Signup  </a></li>
+                                 <li><a class="" href="/signin">Login   </a></li>
+                             {% endif %}
+                              </ul>
+                           </nav>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         </div>
+         <!-- end header inner -->
+      </header>
+      <!-- end header -->
+      <!-- cart -->
+      <section class="h-100" style="background-color: #eee;">
+
+        <div class="container h-100 py-5">
+
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <aside class="col-lg-3">
+              <div class="card">
+                  <div class="card-body">
+                      <dl class="dlist-align">
+                        <p>Total price :</p>
+                          <dt>Total price:</dt>
+                          <dd class="text-right ml-3">{{cart.total_price}} DH</dd>
+                      </dl>
+                      <dl class="dlist-align">
+                        <dt>Items :</dt>
+                        <dd class="text-right ml-3">{{cart.num_of_items}} item</dd>
+                    </dl>
+                      <hr> <a href="{% url 'make_purchase' %}" class="btn btn-out btn-primary btn-square btn-main" data-abc="true"> Make Purchase </a> <a href="/book" class="btn btn-out btn-success btn-square btn-main mt-2" data-abc="true">Continue Shopping</a>
+                  </div>
+              </div>
+          </aside>
+            <div class="col-10">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+
+                <h3 class="fw-normal mb-0 text-black">Shopping Cart</h3>
+
+              </div>
+              {% for item in cartitems %}
+
+
+
+              <div class="card rounded-3 mb-4">
+                <div class="card-body p-4">
+                  <div class="row d-flex justify-content-between align-items-center">
+                    <div class="col-md-2 col-lg-2 col-xl-2">
+                      <img
+                        src="{{item.Final_Rating.Image_URL_L}}"
+                        class="img-fluid rounded-3" alt="Cotton T-shirt">
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-xl-3">
+                      <p class="lead fw-normal mb-2" id="productName">{{item.Final_Rating.Title}}</p>
+                      <p><span class="text-muted">Author  <br></span>{{item.Final_Rating.Author}}</p>
+                      <p><span class="text-muted">Year  <br></span>{{item.Final_Rating.Year}}</p>
+                      <p><span class="text-muted">Rating  <br></span>{{item.Final_Rating.Rating}}</p>
+
+
+                    </div>  
+
+                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                     <!-- Decrease button -->
+    <button class="btn btn-link px-1"
+    onclick="decreaseInputValue('{{ item.id }}')" id="decreaseBtn{{ item.id }}">
+    <i class="fas fa-minus"></i>
+    </button>
+
+    <!-- Input element -->
+    <input id="form{{ item.id }}" min="0" name="quantity" value="{{ item.quantity }}" type="number"
+    class="form-control form-control-sm" />
+
+    <!-- Increase button -->
+    <button class="btn btn-link px-1"
+    onclick="increaseInputValue('{{ item.id }}')" id="increaseBtn{{ item.id }}">
+    <i class="fas fa-plus"></i>
+    </button>
+
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+
+                      <h5 class="mb-0">{{item.Final_Rating.num_of_rating}} Dh</h5>
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+
+                      <h5 class="mb-0">total {{item.price}} Dh</h5>
+                    </div>
+
+                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                      <a href="/book/removefromcart/{{item.id}}" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
+
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+                {% endfor %}
+
+
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+
+      <script>
+    function decreaseInputValue(itemId) {
+      var inputElement = document.getElementById('form' + itemId);
+      if (inputElement) {
+        inputElement.stepDown();
+        updateQuantity(itemId, inputElement.value);
+      } else {
+        console.error("Input element not found.");
+      }
+    }
+
+    function increaseInputValue(itemId) {
+      var inputElement = document.getElementById('form' + itemId);
+      if (inputElement) {
+        inputElement.stepUp();
+        updateQuantity(itemId, inputElement.value);
+      } else {
+        console.error("Input element not found.");
+      }
+    }
+
+    function updateQuantity(itemId, quantity) {
+      if (quantity == 0) {
+        removeItemFromCart(itemId);
+      } else {
+        fetch('/book/addquantity/' + itemId + '/' + quantity, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+          },
+        })
+          .then(response => response.json())
+          .then(data => console.log(data))
+          .then(location.reload());
+      }
+    }
+
+    function removeItemFromCart(itemId) {
+      fetch('/book/removefromcart/' + itemId, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+      })
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .then(location.reload());
+    }
+
+      </script>
+      <!-- end cart -->
+      <!-- footer -->
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row pdn-top-30">
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                     <div class="Follow">
+                        <h3>Follow Us</h3>
+                     </div>
+                     <ul class="location_icon">
+                        <li> <a href="#"><img src=" {% static 'icon/facebook.png'%}"></a></li>
+                        <li> <a href="#"><img src=" {% static 'icon/Twitter.png'%}"></a></li>
+                        <li> <a href="#"><img src=" {% static 'icon/linkedin.png'%}"></a></li>
+                        <li> <a href="#"><img src=" {% static 'icon/instagram.png'%}"></a></li>
+                     </ul>
+                  </div>
+                  <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                     <div class="Follow">
+                        <h3>Newsletter</h3>
+                     </div>
+                     <input class="Newsletter" placeholder="Enter your email" type="Enter your email">
+                     <button class="Subscribe">Subscribe</button>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src=" {% static 'js/jquery.min.js'%}"></script>
+      <script src=" {% static 'js/popper.min.js'%}"></script>
+      <script src=" {% static 'js/bootstrap.bundle.min.js'%}"></script>
+      <script src=" {% static 'js/jquery-3.0.0.min.js'%}"></script>
+      <script src=" {% static 'js/plugin.js'%}"></script>
+      <!-- sidebar -->
+      <script src=" {% static 'js/jquery.mCustomScrollbar.concat.min.js'%}"></script>
+      <script src=" {% static 'js/custom.js'%}"></script>
+   </body>
+</html>

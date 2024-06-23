@@ -11,6 +11,8 @@ urlpatterns = [
     path('about', views.about),
     path('signup/',views.signup, name='signup'),
     path('signin/',views.signin, name='signin'),
+    path('logout/', views.logout,name="logout"),
+    path('user/', views.default),
     path('book/',include('book.urls'),name="book"),
 
 ]

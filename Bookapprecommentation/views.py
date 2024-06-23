@@ -3,10 +3,10 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from .forms import SignInForm , SignUpForm
-
-
-
-
+from book.models import Cart
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth import logout as django_logout
 
 def index(request):
     return render(request, 'index.html')
@@ -21,7 +21,8 @@ def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            form.save()
+            user = form.save()
+            Cart.objects.create(user=user)
             return redirect('/')  
     else:
         form = SignUpForm()
@@ -50,6 +51,11 @@ def signin(request):
         form = SignInForm()
         return render(request, 'signin.html', {'form': form})
 
-    
-    
- 
+@login_required
+def default(request):
+    profile = User.objects.get(user=request.user)    
+    return render(request, 'profile.html', {'profile': profile})
+
+def logout(request):
+    django_logout(request)
+    return redirect('signin')
